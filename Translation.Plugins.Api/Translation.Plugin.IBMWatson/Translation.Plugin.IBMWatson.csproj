@@ -4,10 +4,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Prise.Plugin" Version="1.6.0" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<ProjectReference Include="..\Translation.Plugin.Contract\Translation.Plugin.Contract.csproj" />
 	</ItemGroup>
 </Project>

@@ -1,0 +1,5 @@
+{
+  "publishDir": "..\\Translation.Plugins.Api\\bin\\Debug\\netcoreapp3.1\\Plugins",
+  "configuration": "Release",
+  "includeProjectNameInPublishDir": true
+}
