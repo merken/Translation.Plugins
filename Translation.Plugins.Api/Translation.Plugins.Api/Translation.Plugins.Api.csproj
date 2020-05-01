@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Prise\src\Prise.AssemblyScanning.Discovery\Prise.AssemblyScanning.Discovery.csproj" />
+    <ProjectReference Include="..\..\..\Prise\src\Prise.AssemblyScanning\Prise.AssemblyScanning.csproj" />
+    <ProjectReference Include="..\..\..\Prise\src\Prise.Proxy\Prise.Proxy.csproj" />
+    <ProjectReference Include="..\..\..\Prise\src\Prise\Prise.csproj" />
     <ProjectReference Include="..\Translation.Plugin.Contract\Translation.Plugin.Contract.csproj" />
   </ItemGroup>
 

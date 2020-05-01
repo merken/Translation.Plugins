@@ -10,14 +10,14 @@ using Translation.Plugin.Microsoft.DTO;
 
 namespace Translation.Plugin.Microsoft
 {
-
+    [Plugin(PluginType = typeof(ITranslationPlugin))]
     public class MSCogneticServicesTranslationPlugin : ITranslationPlugin
     {
         private const string V3TranslationApiFormat = "?api-version=3.0&to={0}";
 
         // This is injected by the API Host application
-        [PluginService(ProvidedBy = ProvidedBy.Host, ServiceType = typeof(PluginConfiguration))]
-        private readonly PluginConfiguration pluginConfiguration;
+        [PluginService(ProvidedBy = ProvidedBy.Host, ServiceType = typeof(IPluginConfigurationProvider), BridgeType = typeof(Translation.Plugins.Util.PluginConfigurationProviderBridge))]
+        private readonly IPluginConfigurationProvider pluginConfigurationProvider;
 
         // This is provided by the YandexPluginBootstrapper
         [PluginService(ProvidedBy = ProvidedBy.Plugin, ServiceType = typeof(HttpClient))]
@@ -25,8 +25,9 @@ namespace Translation.Plugin.Microsoft
 
         public async Task<TranslationResponse> Translate(TranslationRequest request)
         {
-            var apiKey = pluginConfiguration.Values["Ocp-Apim-Subscription-Key"];
-            var region = pluginConfiguration.Values["Ocp-Apim-Subscription-Region"];
+            var configuration = await this.pluginConfigurationProvider.ProvideForPluginKey("MSCogneticServices");
+            var apiKey = configuration.Values["Ocp-Apim-Subscription-Key"];
+            var region = configuration.Values["Ocp-Apim-Subscription-Region"];
 
             var requestPayload = CreateRequestBody(request.Text);
             var content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(requestPayload), Encoding.UTF8, "application/json");
@@ -46,10 +47,10 @@ namespace Translation.Plugin.Microsoft
             };
         }
 
-        private Newtonsoft.Json.Linq.JArray CreateRequestBody(string text)
+        private MSCogneticServicesTranslationRequestItem[] CreateRequestBody(string text)
         {
             // creates an array of 1 item
-            return new Newtonsoft.Json.Linq.JArray(new MSCogneticServicesTranslationRequestItem { Text = text });
+            return new MSCogneticServicesTranslationRequestItem[1] { new MSCogneticServicesTranslationRequestItem { Text = text } };
         }
 
         private async Task<T> DeserializeResponse<T>(HttpResponseMessage response)

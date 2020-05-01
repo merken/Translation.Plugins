@@ -7,14 +7,15 @@ using Translation.Plugin.Yandex.Responses;
 
 namespace Translation.Plugin.Yandex
 {
+    [Plugin(PluginType = typeof(ITranslationPlugin))]
     public class YandexTranslationPlugin : ITranslationPlugin
     {
         private const string DetectUrlFormat = "detext?key={0}&text={1}";
         private const string TranslateUrlFormat = "translate?key={0}&text={1}&lang={2}";
 
         // This is injected by the API Host application
-        [PluginService(ProvidedBy = ProvidedBy.Host, ServiceType = typeof(PluginConfiguration))]
-        private readonly PluginConfiguration pluginConfiguration;
+        [PluginService(ProvidedBy = ProvidedBy.Host, ServiceType = typeof(IPluginConfigurationProvider), BridgeType = typeof(Translation.Plugins.Util.PluginConfigurationProviderBridge))]
+        private readonly IPluginConfigurationProvider pluginConfigurationProvider;
 
         // This is provided by the YandexPluginBootstrapper
         [PluginService(ProvidedBy = ProvidedBy.Plugin, ServiceType = typeof(HttpClient))]
@@ -22,7 +23,8 @@ namespace Translation.Plugin.Yandex
 
         public async Task<TranslationResponse> Translate(TranslationRequest request)
         {
-            var apiKey = pluginConfiguration.Values["YandexApiKey"];
+            var configuration = await this.pluginConfigurationProvider.ProvideForPluginKey("Yandex");
+            var apiKey = configuration.Values["YandexApiKey"];
             var sourceLanguage = request.SourceLanguage?.LanguageCode;
 
             if (!String.IsNullOrEmpty(sourceLanguage))
