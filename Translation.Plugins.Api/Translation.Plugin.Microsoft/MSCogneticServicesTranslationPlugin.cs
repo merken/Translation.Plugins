@@ -13,7 +13,7 @@ namespace Translation.Plugin.Microsoft
     [Plugin(PluginType = typeof(ITranslationPlugin))]
     public class MSCogneticServicesTranslationPlugin : ITranslationPlugin
     {
-        private const string V3TranslationApiFormat = "?api-version=3.0&to={0}";
+        private const string V3TranslationApiFormat = "translate?api-version=3.0&to={0}";
 
         // This is injected by the API Host application
         [PluginService(ProvidedBy = ProvidedBy.Host, ServiceType = typeof(IPluginConfigurationProvider), BridgeType = typeof(Translation.Plugins.Util.PluginConfigurationProviderBridge))]
@@ -34,7 +34,7 @@ namespace Translation.Plugin.Microsoft
             content.Headers.Add("Ocp-Apim-Subscription-Key", apiKey);
             content.Headers.Add("Ocp-Apim-Subscription-Region", region);
 
-            var response = await DeserializeResponse<MSCogneticServicesTranslationResponseItem[]>(await client.PostAsync("translate", content));
+            var response = await DeserializeResponse<MSCogneticServicesTranslationResponseItem[]>(await client.PostAsync(String.Format(V3TranslationApiFormat, request.TargetLanguage.LanguageCode), content));
             var translation = response[0]; // Only interested in first response
 
             return new TranslationResponse

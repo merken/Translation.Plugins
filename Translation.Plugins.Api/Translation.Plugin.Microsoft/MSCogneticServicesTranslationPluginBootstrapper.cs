@@ -6,7 +6,7 @@ using Prise.Plugin;
 namespace Translation.Plugin.Microsoft
 {
     [PluginBootstrapper(PluginType =typeof(MSCogneticServicesTranslationPlugin))]
-    public class MSTranslationPluginBootstrapper : IPluginBootstrapper
+    public class MSCogneticServicesTranslationPluginBootstrapper : IPluginBootstrapper
     {
         private const string MSCogneticServicesApi = "https://api.cognitive.microsofttranslator.com/translate";
         public IServiceCollection Bootstrap(IServiceCollection services)

@@ -6,7 +6,7 @@ using Prise.Plugin;
 namespace Translation.Plugin.Yandex
 {
     [PluginBootstrapper(PluginType = typeof(YandexTranslationPlugin))]
-    public class YandexPluginBootstrapper : IPluginBootstrapper
+    public class YandexTranslationPluginBootstrapper : IPluginBootstrapper
     {
         private const string YandexApi = "https://translate.yandex.net/api/v1.5/tr.json/";
         public IServiceCollection Bootstrap(IServiceCollection services)

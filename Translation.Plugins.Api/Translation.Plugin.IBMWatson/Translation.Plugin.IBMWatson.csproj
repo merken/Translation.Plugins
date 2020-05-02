@@ -1,9 +1,32 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<TargetFramework>netstandard2.1</TargetFramework>
 	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Prise.Plugin" Version="1.6.0" />
+		<PackageReference Include="System.Text.Json" Version="4.7.1" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\Translation.Plugin.Contract\Translation.Plugin.Contract.csproj" />
 	</ItemGroup>
+
+	<ItemGroup>
+		<Resource Include="IBM.settings.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+	</ItemGroup>
+
+	<ItemGroup>
+		<DataFiles Include="$(ProjectDir)\IBM.settings.json" />
+	</ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Copy SourceFiles="@(DataFiles)" DestinationFiles="@(DataFiles->'$(TargetDir)\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+	</Target>
+
+	<Target Name="AddPayloadsFolder" AfterTargets="Publish">
+		<Copy SourceFiles="@(DataFiles)" DestinationFiles="@(DataFiles->'$(PublishDir)\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+	</Target>
 </Project>

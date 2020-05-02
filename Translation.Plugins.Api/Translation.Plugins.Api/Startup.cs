@@ -37,6 +37,7 @@ namespace Translation.Plugins.Api
                 .ScanForAssemblies(composer =>
                             composer.UseDiscovery())
                 .UseHostServices(services, new[] { typeof(IConfiguration) })
+                .IgnorePlatformInconsistencies()
                 .ConfigureSharedServices(sharedServices =>
                 {
                     sharedServices.AddScoped<IPluginConfigurationProvider, AppSettingsPluginConfigurationProvider>();
