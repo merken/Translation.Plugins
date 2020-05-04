@@ -5,11 +5,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Translation.Plugin.Contract;
 
 namespace Translation.Plugins.Api.Controllers
 {
+    public class TranslationApiResponse
+    {
+        [JsonPropertyName("translation")]
+        public string Translation { get; set; }
+
+        [JsonPropertyName("plugin")]
+        public string Plugin { get; set; }
+    }
+
     [ApiController]
     [Route("[controller]")]
     public class TranslationController : ControllerBase
@@ -24,9 +34,9 @@ namespace Translation.Plugins.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<string> Get([FromQuery] string text, [FromQuery] string source, [FromQuery] string target)
+        public async Task<TranslationApiResponse[]> Get([FromQuery] string text, [FromQuery] string source, [FromQuery] string target)
         {
-            var builder = new StringBuilder();
+            var responses = new List<TranslationApiResponse>();
             var request = new TranslationRequest
             {
                 SourceLanguage = new TranslationLanguage { LanguageCode = source },
@@ -36,19 +46,25 @@ namespace Translation.Plugins.Api.Controllers
 
             foreach (var plugin in plugins)
             {
-                var pluginType = GetPluginName(plugin);
+                var pluginName = GetPluginName(plugin);
                 var pluginResult = await plugin.Translate(request);
 
-                builder.AppendLine($"{pluginResult.TranslatedText} : {pluginType}");
+                responses.Add(new TranslationApiResponse
+                {
+                    Plugin = pluginName,
+                    Translation = pluginResult.TranslatedText
+                });
             }
 
-            return builder.ToString();
+            return responses.ToArray();
         }
 
         private string GetPluginName(ITranslationPlugin plugin)
         {
             var field = typeof(PriseProxy<ITranslationPlugin>).GetField("remoteObject", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
-            return (field.GetValue(plugin) as object).ToString();
+            var pluginName = (field.GetValue(plugin) as object).ToString();
+            var removeNamespace = pluginName.Replace("Translation.Plugin.", string.Empty);
+            return removeNamespace.Split('.')[0];
         }
     }
 }
