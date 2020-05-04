@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Prise.Proxy;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Translation.Plugin.Contract;
@@ -32,9 +35,20 @@ namespace Translation.Plugins.Api.Controllers
             };
 
             foreach (var plugin in plugins)
-                builder.AppendLine((await plugin.Translate(request)).TranslatedText);
+            {
+                var pluginType = GetPluginName(plugin);
+                var pluginResult = await plugin.Translate(request);
+
+                builder.AppendLine($"{pluginResult.TranslatedText} : {pluginType}");
+            }
 
             return builder.ToString();
+        }
+
+        private string GetPluginName(ITranslationPlugin plugin)
+        {
+            var field = typeof(PriseProxy<ITranslationPlugin>).GetField("remoteObject", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
+            return (field.GetValue(plugin) as object).ToString();
         }
     }
 }
