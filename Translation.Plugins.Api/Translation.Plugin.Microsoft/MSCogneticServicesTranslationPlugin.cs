@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using Prise.Plugin;
 using Translation.Plugin.Contract;
 using Translation.Plugin.Microsoft.DTO;

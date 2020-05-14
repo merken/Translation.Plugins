@@ -13,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Prise;
 using Prise.AssemblyScanning.Discovery;
+using Prise.AssemblyScanning.Discovery.Nuget;
 using Translation.Plugin.Contract;
 using Translation.Plugins.Api.PriseCustomizations;
 
@@ -35,7 +36,7 @@ namespace Translation.Plugins.Api
             {
                 config.WithDefaultOptions(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Plugins"))
                 .ScanForAssemblies(composer =>
-                            composer.UseDiscovery())
+                            composer.UseNugetPackageDiscovery())
                 .UseHostServices(services, new[] { typeof(IConfiguration) })
                 .IgnorePlatformInconsistencies()
                 .ConfigureSharedServices(sharedServices =>

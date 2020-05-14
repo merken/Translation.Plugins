@@ -5,8 +5,8 @@
 
 	<ItemGroup>
 		<PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-		<PackageReference Include="Prise.Plugin" Version="1.6.0" />
-		<PackageReference Include="Prise.PluginBridge" Version="1.6.0" />
+		<PackageReference Include="Prise.Plugin" Version="1.7.0" />
+		<PackageReference Include="Prise.PluginBridge" Version="1.7.0" />
 	</ItemGroup>
 
 	<ItemGroup>

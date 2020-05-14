@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>Translation.Plugin.Microsoft</id>
+    <title>Translation.Plugin.Microsoft</title>
+    <version>1.0.1</version>
+    <authors>TODO</authors>
+    <owners>TODO</owners>
+    <description>Translation.Plugin.Microsoft</description>
+    <copyright>Copyright 2020</copyright>
+    <tags></tags>
+  </metadata>
+  <files>
+    <file src="bin\Debug\netcoreapp2.1\publish\*.*" target="lib\netcoreapp2.1" />
+  </files>
+</package>

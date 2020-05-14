@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package>
+    <metadata>
+        <id>Translation.Plugin.Systran</id>
+        <title>Translation.Plugin.Systran</title>
+        <version>1.0.0</version>
+        <authors>TODO</authors>
+        <owners>TODO</owners>
+        <description>Translation.Plugin.Systran</description>
+        <copyright>Copyright 2020</copyright>
+        <tags></tags>
+    </metadata>
+    <files>
+        <file src="bin\Debug\netcoreapp3.0\publish\*.*" target="lib\netcoreapp3.0" />
+    </files>
+</package>

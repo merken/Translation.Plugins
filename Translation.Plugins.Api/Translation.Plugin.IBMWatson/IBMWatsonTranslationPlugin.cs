@@ -38,6 +38,7 @@ namespace Translation.Plugin.IBMWatson
 
             var response = await this.client.PostAsync(V3TranslationApi, content);
             var translationsResponse = await DeserializeResponse<IBMWatsonTranslationResponse>(response);
+
             return new TranslationResponse
             {
                 OriginalText = request.Text,

@@ -8,8 +8,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Prise.Plugin" Version="1.5.3" />
-		<PackageReference Include="Prise.PluginBridge" Version="1.5.3" />
+    <PackageReference Include="Prise.Plugin" Version="1.7.0" />
+    <PackageReference Include="Prise.PluginBridge" Version="1.7.0" />
 	</ItemGroup>
 </Project>
 
