@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>netstandard2.1</TargetFramework>
+		<TargetFramework>netstandard2.0</TargetFramework>
 	</PropertyGroup>
 
 	<ItemGroup>
     <PackageReference Include="Prise.Plugin" Version="1.7.0" />
-		<PackageReference Include="System.Text.Json" Version="4.7.1" />
+		<PackageReference Include="System.Text.Json" Version="4.7.2" />
 	</ItemGroup>
 
 	<ItemGroup>

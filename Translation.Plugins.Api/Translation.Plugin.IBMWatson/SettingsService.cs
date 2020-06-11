@@ -8,6 +8,8 @@ namespace Translation.Plugin.IBMWatson
 {
     public class Settings
     {
+        [JsonPropertyName("baseUrl")]
+        public string BaseUrl { get; set; }
         [JsonPropertyName("apiKey")]
         public string ApiKey { get; set; }
     }
@@ -21,7 +23,7 @@ namespace Translation.Plugin.IBMWatson
     {
         public async Task<Settings> GetSettings()
         {
-            var isDeployedAsPackage = true;
+            var isDeployedAsPackage = false;
             var filePath = Path.Combine(GetLocalExecutionPath(), "Plugins", "Translation.Plugin.IBMWatson", "IBM.settings.json");
 
             // If this plugin was deployed as a NuGet package, the IBM.settings.json will be extracted into the default extraction dir

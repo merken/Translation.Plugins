@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Translation.Plugins.Api\Controllers\TranslationController.cs" Link="Controllers\TranslationController.cs" />
+    <Compile Include="..\Translation.Plugins.Api\PriseCustomizations\AppSettingsPluginConfigurationProvider.cs" Link="PriseCustomizations\AppSettingsPluginConfigurationProvider.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Prise" Version="1.7.1" />
+    <PackageReference Include="Prise.AssemblyScanning.Discovery.Nuget" Version="1.7.4" />
+    <PackageReference Include="System.Reflection.DispatchProxy" Version="4.7.0" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Translation.Plugin.Contract\Translation.Plugin.Contract.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+    <Folder Include="PriseCustomizations\" />
+  </ItemGroup>
+
+</Project>

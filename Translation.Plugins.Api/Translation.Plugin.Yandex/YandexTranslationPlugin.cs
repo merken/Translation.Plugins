@@ -53,7 +53,7 @@ namespace Translation.Plugin.Yandex
 
         private string ParseYandexLanguage(string languageCode)
         {
-            if (languageCode.Contains('-'))
+            if (languageCode.Contains("-"))
                 return languageCode.Split('-')[0];
 
             return languageCode;

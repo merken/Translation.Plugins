@@ -16,16 +16,16 @@ namespace Translation.Plugin.IBMWatson
 
         // This is injected by the API Host application
         [PluginService(ProvidedBy = ProvidedBy.Plugin, ServiceType = typeof(ISettingsService))]
-        private readonly ISettingsService settingsService;
+        private ISettingsService settingsService;
 
         // This is provided by the YandexPluginBootstrapper
         [PluginService(ProvidedBy = ProvidedBy.Plugin, ServiceType = typeof(HttpClient))]
-        private readonly HttpClient client; // .NET Standard 2.1 HttpClient
+        private HttpClient client; // .NET Standard 2.1 HttpClient
 
         public async Task<TranslationResponse> Translate(TranslationRequest request)
         {
             var settings = await this.settingsService.GetSettings();
-
+            client.BaseAddress = new Uri(settings.BaseUrl);
             var byteArray = new UTF8Encoding().GetBytes($"apikey:{settings.ApiKey}");
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(byteArray));
 

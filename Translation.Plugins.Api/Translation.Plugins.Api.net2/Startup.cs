@@ -32,19 +32,17 @@ namespace Translation.Plugins.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddPrise<ITranslationPlugin>(config =>
             {
                 config.WithDefaultOptions(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Plugins"))
                 .ScanForAssemblies(composer =>
                             composer.UseDiscovery())
-                //.WithRemoteType<JsonSerializerOptions>() // System.Text.Json
                 .WithRemoteType<System.Text.Json.JsonSerializerOptions>()//("System.Text.Json") // System.Text.Json
                 .WithHostAssembly("System.Threading.Tasks.Extensions") // System.Tasks.Extensions
                 .AllowDowngradeForAssembly("System.Threading.Tasks.Extensions") // System.Tasks.Extensions
                 .AllowDowngradeForAssembly("System.Text.Encodings.Web") // System.Tasks.Extensions
                 .AllowDowngradeForAssembly("System.Runtime.CompilerServices.Unsafe") // System.Tasks.Extensions
-                //.WithHostType<ValueTask>() // System.Tasks.Extensions
                 .UseHostServices(services, new[] { typeof(IConfiguration) })
                 .IgnorePlatformInconsistencies()
                 .ConfigureSharedServices(sharedServices =>
@@ -55,7 +53,8 @@ namespace Translation.Plugins.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        //public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, Microsoft.AspNetCore.Hosting.IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -63,15 +62,7 @@ namespace Translation.Plugins.Api
             }
 
             app.UseHttpsRedirection();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseMvc();
         }
     }
 }
