@@ -10,9 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Prise" Version="1.7.1" />
-    <PackageReference Include="Prise.AssemblyScanning.Discovery.Nuget" Version="1.7.4" />
-    <PackageReference Include="System.Reflection.DispatchProxy" Version="4.7.0" />
+    <PackageReference Include="Prise" Version="1.8.0-beta1" />
+    <PackageReference Include="Prise.AssemblyScanning.Discovery.Nuget" Version="1.8.4-beta1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
   </ItemGroup>
